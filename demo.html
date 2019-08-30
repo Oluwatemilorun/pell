@@ -31,7 +31,7 @@
 
     <div class="content">
       <h1>pell</h1>
-      <div id="pell" class="pell"></div>
+      <div id="editor" class="pell"></div>
       <div style="margin-top:20px;">
         <h3>Text output:</h3>
         <div id="text-output"></div>
@@ -44,38 +44,9 @@
 
     <script src="dist/pell.js"></script>
     <script>
-      function ensureHTTP (str) {
-        return /^https?:\/\//.test(str) && str || `http://${str}`
-      }
-
       var editor = window.pell.init({
-        element: document.getElementById('pell'),
-        styleWithCSS: false,
-        actions: [
-          'bold',
-          'underline',
-          'italic',
-          {
-            name: 'zitalic',
-            icon: 'Z',
-            title: 'Zitalic',
-            result: () => window.pell.exec('italic')
-          },
-          {
-            name: 'image',
-            result: () => {
-              const url = window.prompt('Enter the image URL')
-              if (url) window.pell.exec('insertImage', ensureHTTP(url))
-            }
-          },
-          {
-            name: 'link',
-            result: () => {
-              const url = window.prompt('Enter the link URL')
-              if (url) window.pell.exec('createLink', ensureHTTP(url))
-            }
-          }
-        ],
+        element: document.getElementById('editor'),
+        defaultParagraphSeparator: 'p',
         onChange: function (html) {
           document.getElementById('text-output').innerHTML = html
           document.getElementById('html-output').textContent = html
